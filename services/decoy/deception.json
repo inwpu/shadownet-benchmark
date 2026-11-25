@@ -1,0 +1,268 @@
+{
+ "l1": {
+  "banner": "nginx/1.18.0 (Ubuntu)",
+  "env": {
+   "DB_HOST": "intranet-db01.corp.local",
+   "DB_USER": "portal_svc",
+   "DB_PASS": "P0rtal!Svc2019",
+   "FEATURE_FLAG": "sso_v2_rollout"
+  },
+  "admin": {
+   "title": "Intranet Portal - Service Console",
+   "items": [
+    "SSO session store reconnect pending (retry 03:00)",
+    "Kiosk group RECEPTION-02 firmware 4.2.1 staged",
+    "Visitor WiFi voucher batch #4471 generated",
+    "LDAP sync completed - 1284 accounts",
+    "Scheduled maintenance window: Sunday 02:00-04:00"
+   ]
+  },
+  "hosts": [
+   "intranet-portal01.corp.local",
+   "sso-gw01.corp.local",
+   "kiosk-mgmt.corp.local",
+   "visitor-wifi-ctrl.corp.local",
+   "ldap-sync02.corp.local"
+  ],
+  "page": "<!DOCTYPE html><html><head><title>Intranet Portal - Maintenance</title></head><body><h1>Service Console</h1><p>The intranet portal is undergoing scheduled maintenance. SSO login and reception kiosk services will resume shortly.</p><ul><li>Portal: portal01 - maintenance</li><li>SSO gateway: standby</li><li>Visitor WiFi: operational</li></ul><p>Contact IT Service Desk ext. 4410 for assistance.</p></body></html>"
+ },
+ "l2": {
+  "banner": "nginx/1.18.0 (Ubuntu)",
+  "env": {
+   "DB_HOST": "collab-db-01.corp.local",
+   "DB_USER": "collab_app",
+   "DB_PASS": "C0llab!2023#db",
+   "FEATURE_FLAG": "legacy_mode"
+  },
+  "admin": {
+   "title": "Collaboration Services Admin",
+   "items": [
+    "Mail queue backlog on mx-02 (priority)",
+    "Document repository index rebuild scheduled",
+    "Wiki sync job failed - retry pending",
+    "Archive storage usage at 87%",
+    "LDAP bind errors on auth-01"
+   ]
+  },
+  "hosts": [
+   "mx-01.corp.local",
+   "docs-02.corp.local",
+   "wiki-01.corp.local",
+   "archive-03.corp.local",
+   "auth-01.corp.local"
+  ],
+  "page": "<!DOCTYPE html><html><head><title>Collaboration Services - Maintenance</title></head><body><h1>Collaboration Services Maintenance</h1><p>We are currently performing scheduled maintenance on the collaboration suite (mail, documents, wiki, archive). Some services may be intermittently unavailable.</p><p>Please check back later or contact the IT helpdesk for urgent issues.</p><p>Last updated: 2024-11-05 08:30 UTC</p></body></html>"
+ },
+ "l3": {
+  "banner": "Apache/2.4.29 (Ubuntu) OpenSSL/1.1.1",
+  "env": {
+   "DB_HOST": "ordb01.corp.local",
+   "DB_USER": "oms_app",
+   "DB_PASS": "Ord!n4nce2023#svc",
+   "FEATURE_FLAG": "legacy_picklist_v2"
+  },
+  "admin": {
+   "title": "Order Management Console - Operations",
+   "items": [
+    "Ticket #48213 - Picklist export stalled on batch 77",
+    "Ticket #48219 - File share \\\\fs02\\orders\\inbound permissions review",
+    "Ticket #48226 - Message queue consumer lag on ord.queue.fulfillment",
+    "Ticket #48231 - Nightly invoice reconciliation rerun requested",
+    "Ticket #48240 - Archive cleanup for /var/log/oms older than 60 days"
+   ]
+  },
+  "hosts": [
+   "om-app01.corp.local",
+   "om-app02.corp.local",
+   "fs02.corp.local",
+   "mq01.corp.local",
+   "ordb01.corp.local"
+  ],
+  "page": "<!DOCTYPE html>\n<html><head><title>Order Management Console - Maintenance</title></head>\n<body style=\"font-family:Arial,sans-serif;background:#f4f4f4;\">\n<h1>Order Management Console</h1>\n<div style=\"border:1px solid #ccc;padding:12px;background:#fff;max-width:640px;\">\n<p><strong>Scheduled maintenance</strong></p>\n<p>The order entry service is temporarily read-only while the fulfillment queue is drained. New orders will be accepted after 02:00 local time.</p>\n<ul>\n<li>Order entry: read-only</li>\n<li>File share sync: operational</li>\n<li>Message queue: draining (2 consumers)</li>\n</ul>\n<p>Contact: ops-desk@corp.local / ext. 4412</p>\n</div>\n</body></html>"
+ },
+ "l4": {
+  "banner": "nginx/1.14.2 (Ubuntu)",
+  "env": {
+   "DB_HOST": "opsdb02.corpnet.local",
+   "DB_USER": "ops_ro",
+   "DB_PASS": "Maint#2021r0",
+   "FEATURE_FLAG": "sched_v2"
+  },
+  "admin": {
+   "title": "Operations Console - Batch & Backup Scheduler",
+   "items": [
+    "Nightly backup job bk-db02 completed 03:14 (2.1 GB)",
+    "Cron schedule sched-v2 rollout pending approval",
+    "Bastion session audit export ready for review",
+    "Monitoring alert cleared: disk usage opsdb02 /var 81%",
+    "Ticket OPS-4471: rotate service account for rsync jobs"
+   ]
+  },
+  "hosts": [
+   "bastion01.corpnet.local",
+   "opsdb02.corpnet.local",
+   "backup01.corpnet.local",
+   "sched01.corpnet.local",
+   "mon01.corpnet.local"
+  ],
+  "page": "<!DOCTYPE html><html><head><title>Operations Console</title></head><body><h1>Operations Console</h1><p>Scheduler and backup status as of last refresh.</p><ul><li>bk-db02: success 03:14</li><li>bk-files01: success 02:50</li><li>sched-v2: pending approval</li></ul><p>Maintenance window: Sunday 02:00-04:00 UTC. Contact IT Operations for access.</p></body></html>"
+ },
+ "l5": {
+  "banner": "MinIO/RELEASE.2023-03-20",
+  "env": {
+   "DB_HOST": "data-db.data.local",
+   "DB_USER": "data",
+   "DB_PASS": "D4ta!2019",
+   "FEATURE_FLAG": "bucket-policy"
+  },
+  "admin": {
+   "title": "Data platform",
+   "items": [
+    "Object store bucket created",
+    "Key rotation scheduled",
+    "Reporting replica caught up"
+   ]
+  },
+  "hosts": [
+   "data-db.data.local",
+   "kms-legacy.data.local",
+   "reports-01.data.local"
+  ],
+  "page": "<html><title>Data platform</title><body><p>Object storage and key services are available.</p></body></html>"
+ },
+ "l6": {
+  "banner": "nginx/1.18.0 (Ubuntu) - artifacts-svc 2.4.1",
+  "env": {
+   "DB_HOST": "pg-arts01.corpnet.internal",
+   "DB_USER": "artsvc_rw",
+   "DB_PASS": "Ar7if4ct-Rw!2021",
+   "FEATURE_FLAG": "build_cache_v2"
+  },
+  "admin": {
+   "title": "Artifact Registry Console — build-ops",
+   "items": [
+    "TICKET-4471: build runner pool artpool-03 disk pressure on /var/lib/ci",
+    "TICKET-4488: promote release 2.4.1 jar to stable channel",
+    "TICKET-4490: rotate CI deploy token for jenkins-agent-07",
+    "TICKET-4493: mirror upstream maven-central nightly sync failed",
+    "TICKET-4502: gc old snapshots older than 90 days"
+   ]
+  },
+  "hosts": [
+   "git-scm01.corpnet.internal",
+   "ci-master01.corpnet.internal",
+   "artifacts-svc.corpnet.internal",
+   "runner-03.corpnet.internal",
+   "nexus-proxy.corpnet.internal"
+  ],
+  "page": "<!DOCTYPE html><html><head><title>Artifact Registry Console</title></head><body><h1>Artifact Registry — build-ops</h1><p>Service status: <b>DEGRADED</b> — nightly mirror sync delayed.</p><h2>Repositories</h2><ul><li>libs-release-stable (maven2) — 1,204 artifacts</li><li>libs-snapshot (maven2) — 8,931 artifacts</li><li>docker-internal (docker) — 342 tags</li><li>npm-proxy (npm) — cached</li></ul><h2>Build Runners</h2><table border=\"1\"><tr><th>Agent</th><th>Status</th><th>Last Build</th></tr><tr><td>runner-03</td><td>online</td><td>#1823 (12m ago)</td></tr><tr><td>jenkins-agent-07</td><td>offline</td><td>#1819 (2h ago)</td></tr></table><p>Maintenance window: Sun 02:00-04:00 UTC. Contact build-ops@corpnet.internal.</p></body></html>"
+ },
+ "l7": {
+  "banner": "SCADA-Historian Web Console v4.2.7 (build 20180614)",
+  "env": {
+   "DB_HOST": "hist-db01.plantnet.local",
+   "DB_USER": "hist_reader",
+   "DB_PASS": "H1stR3ad!ng2018",
+   "FEATURE_FLAG": "LEGACY_TREND_VIEW=on"
+  },
+  "admin": {
+   "title": "Plant Historian Administration Console",
+   "items": [
+    "Tag import job #4471 completed with 3 warnings",
+    "PLC-04 comms timeout resolved after switch reset",
+    "Nightly trend archive rollover to /data/archive",
+    "User 'j.reyes' requested read access to BATCH_LINE2",
+    "Firmware baseline mismatch on HMI-07 (expected 3.1.2)"
+   ]
+  },
+  "hosts": [
+   "hist-db01.plantnet.local",
+   "hmi-07.line2.plantnet.local",
+   "plc-04.line2.plantnet.local",
+   "scada-gw01.plantnet.local",
+   "trend-archive.plantnet.local"
+  ],
+  "page": "<!DOCTYPE html><html><head><title>Historian Console - Maintenance</title></head><body><h1>Plant Historian Web Console</h1><p>Status: <b>MAINTENANCE MODE</b> &mdash; trend queries are read-only until 06:00.</p><table border=\"1\"><tr><th>Service</th><th>State</th><th>Last Check</th></tr><tr><td>Tag Collector</td><td>Running</td><td>03:12:44</td></tr><tr><td>Archive Rollover</td><td>Idle</td><td>03:00:01</td></tr><tr><td>OPC Bridge</td><td>Degraded</td><td>03:11:58</td></tr></table><p>Contact plant IT ext. 4412 for access changes.</p></body></html>"
+ },
+ "l8": {
+  "banner": "lighttpd/1.4.45 (Debian) - SIEM Collector Frontend",
+  "env": {
+   "DB_HOST": "siem-collect01.corp.local",
+   "DB_USER": "siem_ingest",
+   "DB_PASS": "C0ll3ct0r!2021",
+   "FEATURE_FLAG": "retention_90d"
+  },
+  "admin": {
+   "title": "Security Operations Console - Collector Status",
+   "items": [
+    "Ticket #48213 - Backup job bkp-dr-02 exceeded window (retry queued)",
+    "Certificate renewal pending: cert-svc intermediate expires in 21 days",
+    "DR replication lag on dr-node-b: 14m behind primary",
+    "Alert rule tuning: reduce false positives on 4625 burst threshold",
+    "Ingest pipeline: 3 parsers in degraded state after schema update"
+   ]
+  },
+  "hosts": [
+   "siem-collect01.corp.local",
+   "bkp-dr-02.corp.local",
+   "dr-node-b.corp.local",
+   "cert-svc01.corp.local",
+   "siem-indexer03.corp.local"
+  ],
+  "page": "<!DOCTYPE html><html><head><title>Security Operations Console</title></head><body style=\"font-family:Arial,sans-serif;background:#f4f4f4;margin:0\"><div style=\"background:#2b3a4a;color:#fff;padding:12px 20px\"><h2 style=\"margin:0\">Security Operations - Collector Status</h2></div><div style=\"padding:20px\"><p>System status: <b style=\"color:#b8860b\">DEGRADED</b> - maintenance window in progress.</p><table border=\"1\" cellpadding=\"6\" cellspacing=\"0\" style=\"background:#fff;border-collapse:collapse\"><tr style=\"background:#ddd\"><th>Component</th><th>State</th><th>Last Check</th></tr><tr><td>Ingest Pipeline</td><td>Running</td><td>02:14 UTC</td></tr><tr><td>Indexer Cluster</td><td>Yellow</td><td>02:12 UTC</td></tr><tr><td>Backup Replication</td><td>Retrying</td><td>02:10 UTC</td></tr><tr><td>Certificate Services</td><td>Online</td><td>02:15 UTC</td></tr></table><p style=\"margin-top:20px\"><a href=\"/admin/status\">Refresh status</a> | <a href=\"/admin/tickets\">Open tickets</a></p><p style=\"color:#777;font-size:12px\">Internal use only. Contact secops-oncall for escalation.</p></div></body></html>"
+ },
+ "l9": {
+  "banner": "nginx/1.18.0 (Ubuntu) — corp-iam-gw01",
+  "env": {
+   "DB_HOST": "iam-db01.corp.local",
+   "DB_USER": "iam_svc",
+   "DB_PASS": "Vault!svc#2023",
+   "FEATURE_FLAG": "legacy_mfa_bridge"
+  },
+  "admin": {
+   "title": "IAM Legacy Operations Console v2.4.1",
+   "items": [
+    "PKI-1187: intermediate CA bundle renewal pending approval",
+    "IAM-4421: orphaned service account cleanup — 37 accounts flagged",
+    "Vault-ops: token rotation batch completed for core-db role",
+    "DB-2290: read replica lag alert on iam-db02",
+    "Change window 02:00-04:00 UTC — IAM schema migration"
+   ]
+  },
+  "hosts": [
+   "iam-db01.corp.local",
+   "pki-int-ca02.corp.local",
+   "vault-ops01.corp.local",
+   "core-db03.corp.local",
+   "iam-gw01.corp.local"
+  ],
+  "page": "<!DOCTYPE html><html><head><title>IAM Legacy Operations Console</title></head><body><h1>IAM Legacy Operations Console</h1><p>Service status: <b>DEGRADED</b> — PKI intermediate CA sync pending.</p><ul><li>IAM-4421 orphaned service accounts: 37</li><li>Vault token rotation: last run 2023-11-14 03:12 UTC</li><li>Core DB replica lag: 4.2s</li></ul><p>Maintenance window: 02:00-04:00 UTC. Contact identity-platform@corp.local for escalation.</p></body></html>"
+ },
+ "vault": {
+  "banner": "vault-core 2.4.7 (build 8812) - internal token & audit service",
+  "env": {
+   "DB_HOST": "vault-db01.corp.local",
+   "DB_USER": "vault_svc",
+   "DB_PASS": "Vt-Svc-9f3Kq2",
+   "FEATURE_FLAG": "legacy_tokens=1"
+  },
+  "admin": {
+   "title": "Vault Core Console - Token & Audit",
+   "items": [
+    "INC-4471 token issuance latency above threshold (p95 820ms)",
+    "Export job crypto-keys-2024-11 stuck in QUEUED state",
+    "Rotate signing key alias 'core-v2' before 2025-01-15",
+    "Audit log retention prune skipped on node vault-core-02",
+    "Pending approval: read scope for reporting-svc"
+   ]
+  },
+  "hosts": [
+   "vault-core-01.corp.local",
+   "vault-core-02.corp.local",
+   "vault-db01.corp.local",
+   "vault-export.corp.local",
+   "audit-relay.corp.local"
+  ],
+  "page": "<!DOCTYPE html><html><head><title>Vault Core - Maintenance</title></head><body style=\"font-family:monospace;background:#1e1e1e;color:#ddd;padding:2em\"><h2>Vault Core Console</h2><p>Service is in <b>maintenance mode</b> while scheduled key rotation completes.</p><p>Token issuance and audit ingestion are paused. Export jobs will resume automatically.</p><pre>node: vault-core-01\nstatus: MAINTENANCE\nwindow: 02:00-03:00 UTC\nowner: platform-security</pre><p>Contact the platform-security on-call for access requests.</p></body></html>"
+ }
+}

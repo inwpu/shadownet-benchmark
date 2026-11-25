@@ -1,0 +1,19 @@
+ShadowNet — Enterprise Shadow Network v1
+Copyright (c) 2026 攻防SRC-nwpucat, By 喜吾安璇 (WeChat: ainwpu)
+
+This product includes third-party components:
+
+- Chart.js 4.4.7 — MIT License — https://www.chartjs.org/
+  Bundled at frontend/chart.umd.min.js. The upstream license banner is retained.
+
+- Vulhub container images (langflow, erlang, spring-boot-jetty and others) —
+  pulled at runtime from Docker Hub, not redistributed in this repository.
+  Each image retains its upstream license.
+
+- community/li0nek9a-nwpucat-pentest-range/ — contributed by Li0nek9a.
+  Copyright remains with the contributor. Included with permission for
+  research and benchmark reference. Live credentials, tokens and host
+  identifiers have been redacted by the maintainers.
+
+- The agent project "param" (https://github.com/parameciumzhang/param) is
+  referenced by link only and is not bundled here. Its own license applies.

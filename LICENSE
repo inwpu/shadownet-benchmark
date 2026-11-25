@@ -1,0 +1,63 @@
+ShadowNet Attribution License 1.0 (SNAL-1.0)
+ShadowNet 署名许可协议 1.0
+
+Copyright (c) 2026 攻防SRC-nwpucat, By 喜吾安璇
+微信公众号: 攻防SRC   微信: ainwpu
+Official WeChat Account: 攻防SRC    WeChat ID: ainwpu
+
+中文摘要 / Chinese summary
+
+你可以自由复制、修改、分发、部署和商用本项目及其衍生作品，唯一必须遵守的条件是：
+在所有副本、分发版本和衍生作品中保留本协议与来源署名，并显著展示
+“攻防SRC-nwpucat — By 喜吾安璇（微信: ainwpu，微信公众号: 攻防SRC）”。
+来源署名可以以文字、链接或本仓库 assets/wechat-official.png 二维码图片的形式呈现。
+
+English summary
+
+You may copy, modify, distribute, deploy and commercially use this project and
+derivative works. The only condition is that every copy, distribution and
+derivative retains this license and the attribution notice below, and
+prominently displays:
+"攻防SRC-nwpucat — By 喜吾安璇 (WeChat: ainwpu, Official Account: 攻防SRC)".
+The attribution may be shown as text, a link, or the QR image in
+assets/wechat-official.png.
+
+1. Grant
+   Subject to the conditions in Section 2, the copyright holder grants you a
+   worldwide, royalty-free, non-exclusive license to use, copy, modify, merge,
+   publish, distribute, sublicense, and/or sell copies of the software and
+   derivative works, in source or binary form, for any purpose.
+
+2. Conditions
+   (a) You must retain this LICENSE file and the copyright/attribution notice
+       in all copies and substantial portions of the software.
+   (b) Any public copy, distribution, deployment or derivative work must
+       prominently include the following attribution:
+           攻防SRC-nwpucat — By 喜吾安璇
+           WeChat: ainwpu
+           微信公众号 / Official Account: 攻防SRC
+       and should include the QR image at assets/wechat-official.png (or an
+       equivalent visible reference to the official account).
+   (c) You must clearly indicate changes made to the original software.
+   (d) You may not remove or obscure the attribution notice.
+
+3. Trademarks
+   This license does not grant permission to use the trade names, trademarks,
+   service marks or logos of the copyright holder, except as required for
+   reasonable and customary use in describing the origin of the software and
+   reproducing the attribution notice.
+
+4. No warranty
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+   DEALINGS IN THE SOFTWARE.
+
+5. Authorized use
+   This software is a deliberately vulnerable security range for authorized
+   security testing, research and education. Do not deploy it on public
+   networks or use it against systems you do not own or have written
+   permission to test.

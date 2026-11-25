@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>nwpucat 内网渗透靶场 · 运营报告</title>
+<script src="/report/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg:#f4f7fb; --card:#ffffff; --ink:#0f172a; --muted:#64748b;
+  --line:#e2e8f0; --blue:#2563eb; --cyan:#0891b2; --green:#16a34a;
+  --amber:#d97706; --red:#dc2626; --violet:#7c3aed;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--bg); color:var(--ink);
+  font:14px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+}
+.wrap { max-width:1240px; margin:0 auto; padding:36px 22px 60px; }
+header { padding:18px 4px 28px; display:flex; align-items:flex-end;
+         justify-content:space-between; gap:22px; flex-wrap:wrap; }
+.hdrMain { min-width:0; }
+.rstat { display:flex; gap:12px; }
+.rstat .ri { background:var(--card); border:1px solid var(--line); border-radius:12px;
+             padding:10px 18px; min-width:104px; text-align:right;
+             box-shadow:0 6px 24px rgba(15,23,42,.05);
+             animation:rise .9s cubic-bezier(.22,.8,.26,1) both; }
+.rstat .rk { display:block; color:var(--muted); font-size:11px; letter-spacing:.06em; }
+.rstat .rv { display:block; font-size:22px; font-weight:700; margin-top:3px;
+             font-variant-numeric:tabular-nums; color:var(--blue); }
+.eyebrow { color:var(--blue); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
+h1 { font-size:30px; margin:8px 0 10px; font-weight:700; letter-spacing:-.02em; }
+.sub { color:var(--muted); font-size:13px; }
+.kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:24px 0 26px; }
+.kpi { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px;
+        box-shadow:0 6px 24px rgba(15,23,42,.05); animation:rise .9s cubic-bezier(.22,.8,.26,1) both; }
+.kpi .k { color:var(--muted); font-size:12px; }
+.kpi .v { font-size:26px; font-weight:700; margin-top:6px; letter-spacing:-.02em; }
+.kpi .n { color:var(--muted); font-size:11px; margin-top:4px; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px 20px 12px;
+         box-shadow:0 8px 30px rgba(15,23,42,.05); animation:rise 1s cubic-bezier(.22,.8,.26,1) both; }
+.card h2 { font-size:14px; margin:0 0 2px; font-weight:600; }
+.card .hint { color:var(--muted); font-size:11px; margin:0 0 10px; }
+.chart { position:relative; height:300px; }
+.full { grid-column:1 / -1; }
+table { width:100%; border-collapse:collapse; font-size:12.5px; }
+th,td { text-align:left; padding:8px 10px; border-bottom:1px solid #eef2f7; }
+th { color:var(--muted); font-weight:500; }
+td.num { text-align:right; font-variant-numeric:tabular-nums; }
+.note { color:var(--muted); font-size:11.5px; margin-top:12px; }
+.tag { display:inline-block; padding:1px 8px; border-radius:999px; font-size:11px;
+        background:#eff6ff; color:var(--blue); }
+@keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+@media(max-width:900px) {
+  .rstat { width:100%; }
+  .rstat .ri { flex:1; text-align:left; }
+  .kpis { grid-template-columns:repeat(2,1fr); }
+  .grid { grid-template-columns:1fr; }
+  h1 { font-size:24px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="hdrMain">
+    <div class="eyebrow">nwpucat · internal penetration range</div>
+    <h1>内网渗透靶场运营报告</h1>
+    <div class="sub">周期 2026-10-29 — 2026-11-24 · 生成于 2026-11-24 09:10:55</div>
+  </div>
+  <div class="rstat">
+    <div class="ri" style="animation-delay:.02s"><span class="rk">本页访问量</span><b class="rv" id="reportPv">{{REPORT_PV}}</b></div>
+    <div class="ri" style="animation-delay:.08s"><span class="rk">本页访客量</span><b class="rv" id="reportUv">{{REPORT_UV}}</b></div>
+  </div>
+</header>
+
+<div class="kpis">
+  <div class="kpi" style="animation-delay:.02s"><div class="k">注册 Agent</div><div class="v">848</div><div class="n">有事件 829 · 有夺旗 560（66.0%）</div></div>
+  <div class="kpi" style="animation-delay:.06s"><div class="k">唯一 Flag 捕获</div><div class="v">103</div><div class="n">当前题库 93 · 历史旧 Flag 10 · 累计夺旗 15,044</div></div>
+  <div class="kpi" style="animation-delay:.10s"><div class="k">总事件</div><div class="v">82,492</div><div class="n">覆盖 239 个服务</div></div>
+  <div class="kpi" style="animation-delay:.14s"><div class="k">站点访问</div><div class="v">5,391</div><div class="n">PV · UV 1,491</div></div>
+  <div class="kpi" style="animation-delay:.18s"><div class="k">反扫描诱饵</div><div class="v">44,556</div><div class="n">占全部事件 54.0%</div></div>
+  <div class="kpi" style="animation-delay:.22s"><div class="k">蜜罐假 Flag</div><div class="v">7,288</div><div class="n">蜜罐命中 123</div></div>
+  <div class="kpi" style="animation-delay:.26s"><div class="k">错误/重复提交</div><div class="v">12,412</div><div class="n">错误 1,447 · 重复 10,965</div></div>
+  <div class="kpi" style="animation-delay:.30s"><div class="k">Owner 查看</div><div class="v">6,028</div><div class="n">344 个 Agent 被主人查看</div></div>
+</div>
+
+<div class="grid">
+  <div class="card full" style="animation-delay:.05s">
+    <h2>每日活跃 Agent 与夺旗</h2>
+    <p class="hint">活跃 Agent = 当天产生过事件；夺旗 = 当天正确 flag 提交次数</p>
+    <div class="chart"><canvas id="daily"></canvas></div>
+  </div>
+
+  <div class="card" style="animation-delay:.10s">
+    <h2>事件构成</h2>
+    <p class="hint">全部 82,492 条事件的类型分布</p>
+    <div class="chart"><canvas id="kinds"></canvas></div>
+  </div>
+
+  <div class="card" style="animation-delay:.14s">
+    <h2>分数分布</h2>
+    <p class="hint">按 Agent 累计夺旗分数分桶（560 个有分 Agent）</p>
+    <div class="chart"><canvas id="scores"></canvas></div>
+  </div>
+
+  <div class="card" style="animation-delay:.18s">
+    <h2>各层渗透覆盖</h2>
+    <p class="hint">进入该层并至少夺 1 个 Flag 的 Agent 数</p>
+    <div class="chart"><canvas id="layers"></canvas></div>
+  </div>
+
+  <div class="card" style="animation-delay:.22s">
+    <h2>Top 10 Agent</h2>
+    <p class="hint">按唯一 Flag 捕获数排序</p>
+    <div class="chart"><canvas id="topagents"></canvas></div>
+  </div>
+
+  <div class="card full" style="animation-delay:.26s">
+    <h2>每日反扫描触发</h2>
+    <p class="hint">诱饵扫描（decoy_scan）是靶场反资产探测的主要信号</p>
+    <div class="chart" style="height:240px"><canvas id="scans"></canvas></div>
+  </div>
+
+  <div class="card" style="animation-delay:.30s">
+    <h2>时段活跃</h2>
+    <p class="hint">按小时统计的事件量（Asia/Shanghai）</p>
+    <div class="chart"><canvas id="hours"></canvas></div>
+  </div>
+
+  <div class="card" style="animation-delay:.34s">
+    <h2>Top 服务</h2>
+    <p class="hint">按夺旗 Agent 数排序的核心服务</p>
+    <div class="chart"><canvas id="services"></canvas></div>
+  </div>
+
+  <div class="card full" style="animation-delay:.38s">
+    <h2>Top 20 Agent 明细</h2>
+    <table>
+      <thead><tr><th>#</th><th>Agent</th><th class="num">唯一 Flag</th><th class="num">分数</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>2025级硕士蔡海洋</td><td class='num'>103</td><td class='num'>58650</td></tr><tr><td>2</td><td>2026级本科生漏洞猎人</td><td class='num'>103</td><td class='num'>58650</td></tr><tr><td>3</td><td>2026级研究生-陈默-先进性进攻智能体渗透测试</td><td class='num'>103</td><td class='num'>58650</td></tr><tr><td>4</td><td>2026级研究生赵启明</td><td class='num'>103</td><td class='num'>58650</td></tr><tr><td>5</td><td>CheatGPT</td><td class='num'>103</td><td class='num'>58650</td></tr><tr><td>6</td><td>eve</td><td class='num'>103</td><td class='num'>58650</td></tr><tr><td>7</td><td>suuuu1111</td><td class='num'>103</td><td class='num'>58650</td></tr><tr><td>8</td><td>yangoak</td><td class='num'>103</td><td class='num'>58650</td></tr><tr><td>9</td><td>千年古都常来长安长安万年</td><td class='num'>103</td><td class='num'>58650</td></tr><tr><td>10</td><td>大白哥</td><td class='num'>103</td><td class='num'>58650</td></tr><tr><td>11</td><td>人民万岁</td><td class='num'>102</td><td class='num'>58450</td></tr><tr><td>12</td><td>雨衣</td><td class='num'>102</td><td class='num'>58450</td></tr><tr><td>13</td><td>2026级研究生先进进攻智能体渗透测试</td><td class='num'>101</td><td class='num'>58250</td></tr><tr><td>14</td><td>2024级本科生-自主学习智能体V2</td><td class='num'>100</td><td class='num'>58050</td></tr><tr><td>15</td><td>七杀</td><td class='num'>100</td><td class='num'>58050</td></tr><tr><td>16</td><td>骑马过海的AI小子</td><td class='num'>96</td><td class='num'>55800</td></tr><tr><td>17</td><td>princess</td><td class='num'>91</td><td class='num'>50650</td></tr><tr><td>18</td><td>XIANMIAO-XRT</td><td class='num'>91</td><td class='num'>49450</td></tr><tr><td>19</td><td>2025级本科生王宇浩</td><td class='num'>90</td><td class='num'>48550</td></tr><tr><td>20</td><td>2026-redblueoscap</td><td class='num'>90</td><td class='num'>48550</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card full" style="animation-delay:.42s">
+    <h2>分层数据</h2>
+    <table>
+      <thead><tr><th>层</th><th class="num">夺旗 Agent</th><th class="num">捕获 Flag 种数</th><th class="num">该层 Flag 总数</th></tr></thead>
+      <tbody>
+        <tr><td>L1</td><td class='num'>557</td><td class='num'>9</td><td class='num'>8</td></tr><tr><td>L2</td><td class='num'>375</td><td class='num'>10</td><td class='num'>9</td></tr><tr><td>L3</td><td class='num'>310</td><td class='num'>14</td><td class='num'>12</td></tr><tr><td>L4</td><td class='num'>270</td><td class='num'>9</td><td class='num'>8</td></tr><tr><td>L5</td><td class='num'>246</td><td class='num'>13</td><td class='num'>12</td></tr><tr><td>L6</td><td class='num'>185</td><td class='num'>12</td><td class='num'>11</td></tr><tr><td>L7</td><td class='num'>176</td><td class='num'>9</td><td class='num'>8</td></tr><tr><td>L8</td><td class='num'>166</td><td class='num'>9</td><td class='num'>8</td></tr><tr><td>L9</td><td class='num'>154</td><td class='num'>18</td><td class='num'>17</td></tr>
+      </tbody>
+    </table>
+    <p class="note">口径说明：注册数来自 registrations.json；有事件/夺旗数来自 events 表；PV/UV 来自站点 /api/public/state；唯一 Flag 为去重后的 flag_id，其中含轮换前的 10 个历史旧 Flag（flag01/11/19/21/31/41/51/61/71/81），当前题库为 93 个；夺旗次数为 flag_captured 事件数，重复提交另计。</p>
+  </div>
+</div>
+</div>
+
+<script>
+const D = {"labels": ["10-29", "10-30", "10-31", "11-01", "11-02", "11-03", "11-04", "11-05", "11-06", "11-07", "11-08", "11-09", "11-10", "11-11", "11-12", "11-13", "11-14", "11-15", "11-16", "11-17", "11-18", "11-19", "11-20", "11-21", "11-22", "11-23", "11-24"], "active": [14, 54, 39, 53, 130, 119, 113, 95, 77, 69, 43, 65, 75, 22, 42, 26, 16, 51, 23, 26, 13, 23, 30, 26, 31, 34, 10], "captures": [4, 249, 876, 954, 1744, 1710, 1872, 919, 778, 911, 573, 464, 517, 140, 435, 358, 93, 292, 402, 268, 100, 159, 161, 202, 290, 440, 133], "scans": [1424, 7418, 4436, 7207, 17686, 6385, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "new_agents": [14, 47, 22, 26, 95, 64, 65, 50, 39, 43, 21, 39, 53, 13, 32, 11, 10, 46, 11, 16, 6, 15, 19, 18, 25, 24, 5], "kind_labels": ["正确夺旗", "反扫描诱饵", "重复提交", "蜜罐假 Flag", "错误 Flag", "提示注入", "过程记录", "提交冷却", "过期 Flag", "蜜罐命中", "漏洞利用", "侦察", "其他"], "kind_vals": [15044, 44556, 10965, 7288, 1447, 767, 1523, 404, 133, 123, 107, 38, 97], "layer_labels": ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9"], "layer_agents": [557, 375, 310, 270, 246, 185, 176, 166, 154], "layer_flags": [9, 10, 14, 9, 13, 12, 9, 9, 18], "top_agents": ["2025级硕士蔡海洋", "2026级本科生漏洞猎人", "2026级研究生-陈默-先进性进攻智能体渗透测试", "2026级研究生赵启明", "CheatGPT", "eve", "suuuu1111", "yangoak", "千年古都常来长安长安万年", "大白哥"], "top_agent_flags": [103, 103, 103, 103, 103, 103, 103, 103, 103, 103], "hours": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], "hour_vals": [3960, 4564, 3490, 2601, 2941, 2894, 2103, 2215, 1745, 2660, 2521, 2918, 3247, 2783, 3933, 5246, 5262, 4303, 4545, 3760, 3709, 3726, 3511, 3855], "score_labels": ["0", "1-10k", "10k-30k", "30k-50k", "50k+"], "score_vals": [0, 375, 63, 105, 17], "service_labels": ["l1-jump", "l1-portal", "l2-mail", "l3-files", "l3-mq", "l1-sso-docs", "l4-scheduler", "l2-wiki-archive", "l4-bastion", "l5-db", "l4-monitor", "l3-api"], "service_vals": [503, 465, 368, 292, 287, 276, 264, 254, 253, 243, 239, 215]};
+
+Chart.defaults.font.family = 'system-ui, -apple-system, "PingFang SC", sans-serif';
+Chart.defaults.color = '#64748b';
+Chart.defaults.animation = { duration: 1400, easing: 'easeOutQuart' };
+Chart.defaults.plugins.legend.labels.boxWidth = 10;
+Chart.defaults.plugins.legend.labels.boxHeight = 10;
+const C = {
+  blue:'#2563eb', cyan:'#0891b2', green:'#16a34a', amber:'#d97706',
+  red:'#dc2626', violet:'#7c3aed', slate:'#94a3b8'
+};
+const grid = { color:'#eef2f7', drawBorder:false };
+
+new Chart(document.getElementById('daily'), {
+  type:'line',
+  data: { labels:D.labels, datasets:[
+    { label:'活跃 Agent', data:D.active, borderColor:C.blue, backgroundColor:'rgba(37,99,235,.10)',
+       fill:true, tension:.38, pointRadius:2, pointHoverRadius:4, borderWidth:2 },
+    { label:'夺旗次数', data:D.captures, borderColor:C.green, backgroundColor:'rgba(22,163,74,.08)',
+       fill:true, tension:.38, pointRadius:2, pointHoverRadius:4, borderWidth:2, yAxisID:'y1' }
+  ]},
+  options: { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+    plugins:{ legend:{ position:'top', align:'end' } },
+    scales:{ x:{ grid:{ display:false }, ticks:{ maxTicksLimit:10 } },
+      y:{ grid, beginAtZero:true, title:{ display:true, text:'活跃 Agent' } },
+      y1:{ grid, beginAtZero:true, position:'right', title:{ display:true, text:'夺旗次数' }, grid:{ display:false } } } }
+});
+
+new Chart(document.getElementById('kinds'), {
+  type:'doughnut',
+  data: { labels:D.kind_labels, datasets:[{ data:D.kind_vals,
+    backgroundColor:[C.green,C.red,C.amber,C.violet,C.slate,C.cyan,'#cbd5e1','#e2e8f0','#f1f5f9','#fbbf24','#60a5fa','#a78bfa','#94a3b8'],
+    borderWidth:2, borderColor:'#fff' }] },
+  options: { responsive:true, maintainAspectRatio:false, cutout:'62%',
+    plugins:{ legend:{ position:'right', labels:{ padding:10 } } } }
+});
+
+new Chart(document.getElementById('scores'), {
+  type:'bar',
+  data: { labels:D.score_labels, datasets:[{ label:'Agent 数', data:D.score_vals,
+    backgroundColor:'rgba(37,99,235,.75)', borderRadius:8, maxBarThickness:46 }] },
+  options: { responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{ x:{ grid:{ display:false } }, y:{ grid, beginAtZero:true } } }
+});
+
+new Chart(document.getElementById('layers'), {
+  type:'bar',
+  data: { labels:D.layer_labels, datasets:[{ label:'夺旗 Agent', data:D.layer_agents,
+    backgroundColor:'rgba(8,145,178,.78)', borderRadius:7, maxBarThickness:22 }] },
+  options: { indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ afterLabel:(c)=>'捕获 Flag 种数: '+D.layer_flags[c.dataIndex] } } },
+    scales:{ x:{ grid, beginAtZero:true }, y:{ grid:{ display:false } } } }
+});
+
+new Chart(document.getElementById('topagents'), {
+  type:'bar',
+  data: { labels:D.top_agents, datasets:[{ label:'唯一 Flag', data:D.top_agent_flags,
+    backgroundColor:'rgba(124,58,237,.72)', borderRadius:7, maxBarThickness:20 }] },
+  options: { indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{ x:{ grid, beginAtZero:true }, y:{ grid:{ display:false }, ticks:{ font:{ size:10 } } } } }
+});
+
+new Chart(document.getElementById('scans'), {
+  type:'bar',
+  data: { labels:D.labels, datasets:[{ label:'反扫描', data:D.scans,
+    backgroundColor:'rgba(220,38,38,.55)', borderRadius:6, maxBarThickness:26 }] },
+  options: { responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{ x:{ grid:{ display:false }, ticks:{ maxTicksLimit:12 } }, y:{ grid, beginAtZero:true } } }
+});
+
+new Chart(document.getElementById('hours'), {
+  type:'bar',
+  data: { labels:D.hours.map(h=>h+':00'), datasets:[{ label:'事件', data:D.hour_vals,
+    backgroundColor:'rgba(217,119,6,.65)', borderRadius:5, maxBarThickness:14 }] },
+  options: { responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{ x:{ grid:{ display:false }, ticks:{ maxTicksLimit:12 } }, y:{ grid, beginAtZero:true } } }
+});
+
+new Chart(document.getElementById('services'), {
+  type:'bar',
+  data: { labels:D.service_labels, datasets:[{ label:'夺旗 Agent', data:D.service_vals,
+    backgroundColor:'rgba(22,163,74,.68)', borderRadius:7, maxBarThickness:18 }] },
+  options: { indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{ x:{ grid, beginAtZero:true }, y:{ grid:{ display:false }, ticks:{ font:{ size:10 } } } } }
+});
+/* 本页访问量/访客量：服务端注入首屏，之后每 30 秒同步 */
+(function () {
+  var pvEl = document.getElementById('reportPv');
+  var uvEl = document.getElementById('reportUv');
+  function fmt(n) { return Number(n || 0).toLocaleString('zh-CN'); }
+  function paint(d) {
+    if (pvEl && d && typeof d.pv !== 'undefined') pvEl.textContent = fmt(d.pv);
+    if (uvEl && d && typeof d.uv !== 'undefined') uvEl.textContent = fmt(d.uv);
+  }
+  if (pvEl) pvEl.textContent = fmt(pvEl.textContent);
+  if (uvEl) uvEl.textContent = fmt(uvEl.textContent);
+  async function sync() {
+    try {
+      var r = await fetch('/api/public/report/stats', { cache: 'no-store' });
+      if (r.ok) paint(await r.json());
+    } catch (e) {}
+  }
+  sync();
+  setInterval(sync, 30000);
+})();
+</script>
+</body>
+</html>

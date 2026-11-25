@@ -1,0 +1,222 @@
+{
+ "l1-portal": [
+  "flag02",
+  "flag03"
+ ],
+ "l1-sso": [
+  "flag06"
+ ],
+ "l1-jump": [
+  "flag07",
+  "flag08",
+  "flag09"
+ ],
+ "l2-docs": [
+  "flag10",
+  "flag12"
+ ],
+ "l2-mail": [
+  "flag13",
+  "flag14",
+  "flag15"
+ ],
+ "l2-wiki": [
+  "flag16"
+ ],
+ "l3-api": [
+  "flag20"
+ ],
+ "l3-files": [
+  "flag22",
+  "flag23",
+  "flag24"
+ ],
+ "l3-mq": [
+  "flag25",
+  "flag26",
+  "flag27"
+ ],
+ "l4-bastion": [
+  "flag28",
+  "flag29",
+  "flag30"
+ ],
+ "l4-monitor": [
+  "flag32",
+  "flag33"
+ ],
+ "l4-scheduler": [
+  "flag34",
+  "flag35",
+  "flag36"
+ ],
+ "l5-db": [
+  "flag37",
+  "flag38",
+  "flag39"
+ ],
+ "l5-objectstore": [
+  "flag40",
+  "flag42"
+ ],
+ "l5-kms": [
+  "flag43"
+ ],
+ "l6-git": [
+  "flag46",
+  "flag47",
+  "flag48"
+ ],
+ "l6-ci": [
+  "flag49",
+  "flag50"
+ ],
+ "l6-registry": [
+  "flag52",
+  "flag53",
+  "flag54"
+ ],
+ "l7-hmi": [
+  "flag57"
+ ],
+ "l7-plc": [
+  "flag58",
+  "flag59",
+  "flag60"
+ ],
+ "l7-scada": [
+  "flag62",
+  "flag63"
+ ],
+ "l8-siem": [
+  "flag64",
+  "flag65",
+  "flag66"
+ ],
+ "l8-backup": [
+  "flag67",
+  "flag68",
+  "flag69"
+ ],
+ "l8-dr": [
+  "flag70"
+ ],
+ "l9-iam": [
+  "flag73",
+  "flag74",
+  "flag75"
+ ],
+ "l9-ca": [
+  "flag76",
+  "flag77",
+  "flag78"
+ ],
+ "l9-core": [
+  "flag79",
+  "flag80"
+ ],
+ "l1-sso-docs": [
+  "flag04",
+  "flag05"
+ ],
+ "l2-wiki-archive": [
+  "flag17",
+  "flag18"
+ ],
+ "l5-kms-ops": [
+  "flag44",
+  "flag45"
+ ],
+ "l7-hmi-audit": [
+  "flag55",
+  "flag56"
+ ],
+ "l8-dr-archive": [
+  "flag72"
+ ],
+ "l9-vault-oidc": [
+  "flag82"
+ ],
+ "l9-vault-graph": [
+  "flag83"
+ ],
+ "l9-vault-audit": [
+  "flag84"
+ ],
+ "l9-vault-object": [
+  "flag85"
+ ],
+ "l9-vault-token": [
+  "flag86"
+ ],
+ "l9-vault-fetch": [
+  "flag87"
+ ],
+ "l9-vault-export": [
+  "flag88"
+ ],
+ "l9-vault-admin": [
+  "flag89"
+ ],
+ "l9-vault-log": [
+  "flag90"
+ ],
+ "l9-vault-gw": [],
+ "b1-router": [],
+ "b1-files": [],
+ "b1-print": [],
+ "b1-cctv": [],
+ "b1-im": [
+  "flag91"
+ ],
+ "b1-hp-ssh": [],
+ "b1-hp-db": [],
+ "b2-router": [],
+ "b2-jenkins": [
+  "flag92"
+ ],
+ "b2-teamcity": [
+  "flag93"
+ ],
+ "b2-ingress": [
+  "flag94"
+ ],
+ "b2-gitlab": [],
+ "b2-nexus": [],
+ "b2-build": [],
+ "b2-hp-api": [],
+ "b3-router": [],
+ "b3-geoserver": [
+  "flag95"
+ ],
+ "b3-hertzbeat": [
+  "flag96"
+ ],
+ "b3-activemq": [
+  "flag97"
+ ],
+ "b3-hugegraph": [
+  "flag98"
+ ],
+ "b3-grafana": [],
+ "b3-warehouse": [],
+ "b3-hp-es": [],
+ "b4-router": [],
+ "b4-php": [
+  "flag99"
+ ],
+ "b4-tomcat": [
+  "flag100"
+ ],
+ "b4-react": [
+  "flag101"
+ ],
+ "b4-gotenberg": [
+  "flag102"
+ ],
+ "b4-chartbrew": [
+  "flag103"
+ ],
+ "b4-erp": [],
+ "b4-hp-ftp": []
+}

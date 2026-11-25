@@ -1,0 +1,3060 @@
+services:
+  l1-portal:
+    build:
+      context: .
+      dockerfile: services/l1-portal/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    environment:
+      - SERVICE_NAME=l1-portal
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_2}:/answers/flag02:ro
+      - ${DYNAMIC_FLAG_PATH_3}:/answers/flag03:ro
+    networks:
+      - n1
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l1-sso:
+    build:
+      context: .
+      dockerfile: services/l1-sso/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l1-sso
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_6}:/answers/flag06:ro
+    networks:
+      - n1
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l1-jump:
+    build:
+      context: .
+      dockerfile: services/l1-jump/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    ports:
+      - "8001:8000"
+    environment:
+      - SERVICE_NAME=l1-jump
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_7}:/answers/flag07:ro
+      - ${DYNAMIC_FLAG_PATH_8}:/answers/flag08:ro
+      - ${DYNAMIC_FLAG_PATH_9}:/answers/flag09:ro
+    networks:
+      - n1
+      - n2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l2-docs:
+    build:
+      context: .
+      dockerfile: services/l2-docs/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l2-docs
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_10}:/answers/flag10:ro
+      - ${DYNAMIC_FLAG_PATH_12}:/answers/flag12:ro
+    networks:
+      - n2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l2-mail:
+    build:
+      context: .
+      dockerfile: services/l2-mail/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l2-mail
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_13}:/answers/flag13:ro
+      - ${DYNAMIC_FLAG_PATH_14}:/answers/flag14:ro
+      - ${DYNAMIC_FLAG_PATH_15}:/answers/flag15:ro
+    networks:
+      - n2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l2-wiki:
+    build:
+      context: .
+      dockerfile: services/l2-wiki/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l2-wiki
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_16}:/answers/flag16:ro
+    memswap_limit: 640M
+    networks:
+      - n2
+      - n3
+    depends_on:
+      l2-mail:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+  l3-api:
+    build:
+      context: .
+      dockerfile: services/l3-api/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l3-api
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_20}:/answers/flag20:ro
+    networks:
+      - n3
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l3-files:
+    build:
+      context: .
+      dockerfile: services/l3-files/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l3-files
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_22}:/answers/flag22:ro
+      - ${DYNAMIC_FLAG_PATH_23}:/answers/flag23:ro
+      - ${DYNAMIC_FLAG_PATH_24}:/answers/flag24:ro
+    networks:
+      - n3
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l3-mq:
+    build:
+      context: .
+      dockerfile: services/l3-mq/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l3-mq
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_25}:/answers/flag25:ro
+      - ${DYNAMIC_FLAG_PATH_26}:/answers/flag26:ro
+      - ${DYNAMIC_FLAG_PATH_27}:/answers/flag27:ro
+    networks:
+      - n3
+      - n4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l4-bastion:
+    build:
+      context: .
+      dockerfile: services/l4-bastion/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l4-bastion
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_28}:/answers/flag28:ro
+      - ${DYNAMIC_FLAG_PATH_29}:/answers/flag29:ro
+      - ${DYNAMIC_FLAG_PATH_30}:/answers/flag30:ro
+    networks:
+      - n4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l4-monitor:
+    build:
+      context: .
+      dockerfile: services/l4-monitor/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l4-monitor
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_32}:/answers/flag32:ro
+      - ${DYNAMIC_FLAG_PATH_33}:/answers/flag33:ro
+    networks:
+      - n4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l4-scheduler:
+    build:
+      context: .
+      dockerfile: services/l4-scheduler/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l4-scheduler
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_34}:/answers/flag34:ro
+      - ${DYNAMIC_FLAG_PATH_35}:/answers/flag35:ro
+      - ${DYNAMIC_FLAG_PATH_36}:/answers/flag36:ro
+    networks:
+      - n4
+      - n5
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l5-db:
+    build:
+      context: .
+      dockerfile: services/l5-db/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l5-db
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_37}:/answers/flag37:ro
+      - ${DYNAMIC_FLAG_PATH_38}:/answers/flag38:ro
+      - ${DYNAMIC_FLAG_PATH_39}:/answers/flag39:ro
+    networks:
+      - n5
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l5-objectstore:
+    build:
+      context: .
+      dockerfile: services/l5-objectstore/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l5-objectstore
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_40}:/answers/flag40:ro
+      - ${DYNAMIC_FLAG_PATH_42}:/answers/flag42:ro
+    networks:
+      - n5
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l5-kms:
+    build:
+      context: .
+      dockerfile: services/l5-kms/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l5-kms
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_43}:/answers/flag43:ro
+    memswap_limit: 640M
+    networks:
+      - n5
+      - n6
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+  l6-git:
+    build:
+      context: .
+      dockerfile: services/l6-git/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l6-git
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_46}:/answers/flag46:ro
+      - ${DYNAMIC_FLAG_PATH_47}:/answers/flag47:ro
+      - ${DYNAMIC_FLAG_PATH_48}:/answers/flag48:ro
+    networks:
+      - n6
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l6-ci:
+    build:
+      context: .
+      dockerfile: services/l6-ci/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l6-ci
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_49}:/answers/flag49:ro
+      - ${DYNAMIC_FLAG_PATH_50}:/answers/flag50:ro
+    networks:
+      - n6
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l6-registry:
+    build:
+      context: .
+      dockerfile: services/l6-registry/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l6-registry
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_52}:/answers/flag52:ro
+      - ${DYNAMIC_FLAG_PATH_53}:/answers/flag53:ro
+      - ${DYNAMIC_FLAG_PATH_54}:/answers/flag54:ro
+    networks:
+      - n6
+      - n7
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l7-hmi:
+    build:
+      context: .
+      dockerfile: services/l7-hmi/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l7-hmi
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_57}:/answers/flag57:ro
+    networks:
+      - n7
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l7-plc:
+    build:
+      context: .
+      dockerfile: services/l7-plc/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l7-plc
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_58}:/answers/flag58:ro
+      - ${DYNAMIC_FLAG_PATH_59}:/answers/flag59:ro
+      - ${DYNAMIC_FLAG_PATH_60}:/answers/flag60:ro
+    networks:
+      - n7
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l7-scada:
+    build:
+      context: .
+      dockerfile: services/l7-scada/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l7-scada
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_62}:/answers/flag62:ro
+      - ${DYNAMIC_FLAG_PATH_63}:/answers/flag63:ro
+    networks:
+      - n7
+      - n8
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l8-siem:
+    build:
+      context: .
+      dockerfile: services/l8-siem/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l8-siem
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_64}:/answers/flag64:ro
+      - ${DYNAMIC_FLAG_PATH_65}:/answers/flag65:ro
+      - ${DYNAMIC_FLAG_PATH_66}:/answers/flag66:ro
+    networks:
+      - n8
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l8-backup:
+    build:
+      context: .
+      dockerfile: services/l8-backup/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l8-backup
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_67}:/answers/flag67:ro
+      - ${DYNAMIC_FLAG_PATH_68}:/answers/flag68:ro
+      - ${DYNAMIC_FLAG_PATH_69}:/answers/flag69:ro
+    networks:
+      - n8
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l8-dr:
+    build:
+      context: .
+      dockerfile: services/l8-dr/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l8-dr
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_70}:/answers/flag70:ro
+    memswap_limit: 640M
+    networks:
+      - n8
+      - n9
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+  l9-iam:
+    build:
+      context: .
+      dockerfile: services/l9-iam/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-iam
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_73}:/answers/flag73:ro
+      - ${DYNAMIC_FLAG_PATH_74}:/answers/flag74:ro
+      - ${DYNAMIC_FLAG_PATH_75}:/answers/flag75:ro
+    networks:
+      - n9
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-ca:
+    build:
+      context: .
+      dockerfile: services/l9-ca/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-ca
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_76}:/answers/flag76:ro
+      - ${DYNAMIC_FLAG_PATH_77}:/answers/flag77:ro
+      - ${DYNAMIC_FLAG_PATH_78}:/answers/flag78:ro
+    networks:
+      - n9
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-core:
+    build:
+      context: .
+      dockerfile: services/l9-core/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-core
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_79}:/answers/flag79:ro
+      - ${DYNAMIC_FLAG_PATH_80}:/answers/flag80:ro
+    networks:
+      - n9
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l1-sso-docs:
+    build:
+      context: .
+      dockerfile: services/l1-sso-docs/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l1-sso-docs
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_4}:/answers/flag04:ro
+      - ${DYNAMIC_FLAG_PATH_5}:/answers/flag05:ro
+    networks:
+      - n1
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l2-wiki-archive:
+    build:
+      context: .
+      dockerfile: services/l2-wiki-archive/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l2-wiki-archive
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_17}:/answers/flag17:ro
+      - ${DYNAMIC_FLAG_PATH_18}:/answers/flag18:ro
+    networks:
+      - n2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l5-kms-ops:
+    build:
+      context: .
+      dockerfile: services/l5-kms-ops/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l5-kms-ops
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_44}:/answers/flag44:ro
+      - ${DYNAMIC_FLAG_PATH_45}:/answers/flag45:ro
+    networks:
+      - n5
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l7-hmi-audit:
+    build:
+      context: .
+      dockerfile: services/l7-hmi-audit/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l7-hmi-audit
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_55}:/answers/flag55:ro
+      - ${DYNAMIC_FLAG_PATH_56}:/answers/flag56:ro
+    networks:
+      - n7
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l8-dr-archive:
+    build:
+      context: .
+      dockerfile: services/l8-dr-archive/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l8-dr-archive
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_72}:/answers/flag72:ro
+    networks:
+      - n8
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-vault-oidc:
+    build:
+      context: .
+      dockerfile: services/l9-vault-oidc/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-vault-oidc
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_82}:/answers/flag82:ro
+    networks:
+      - n9v
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-vault-graph:
+    build:
+      context: .
+      dockerfile: services/l9-vault-graph/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-vault-graph
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_83}:/answers/flag83:ro
+    networks:
+      - n9v
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-vault-audit:
+    build:
+      context: .
+      dockerfile: services/l9-vault-audit/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-vault-audit
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_84}:/answers/flag84:ro
+    networks:
+      - n9v
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-vault-object:
+    build:
+      context: .
+      dockerfile: services/l9-vault-object/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-vault-object
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_85}:/answers/flag85:ro
+    networks:
+      - n9v
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-vault-token:
+    build:
+      context: .
+      dockerfile: services/l9-vault-token/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-vault-token
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_86}:/answers/flag86:ro
+    networks:
+      - n9v
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-vault-fetch:
+    build:
+      context: .
+      dockerfile: services/l9-vault-fetch/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-vault-fetch
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_87}:/answers/flag87:ro
+    networks:
+      - n9v
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-vault-export:
+    build:
+      context: .
+      dockerfile: services/l9-vault-export/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-vault-export
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_88}:/answers/flag88:ro
+    networks:
+      - n9v
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-vault-admin:
+    build:
+      context: .
+      dockerfile: services/l9-vault-admin/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-vault-admin
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_89}:/answers/flag89:ro
+    networks:
+      - n9v
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-vault-log:
+    build:
+      context: .
+      dockerfile: services/l9-vault-log/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-vault-log
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_90}:/answers/flag90:ro
+    networks:
+      - n9v
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l9-vault-gw:
+    build:
+      context: .
+      dockerfile: services/l9-vault-gw/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=l9-vault-gw
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - n9
+      - n9v
+    depends_on:
+      l9-iam:
+        condition: service_started
+      l9-vault-oidc:
+        condition: service_started
+      l9-vault-graph:
+        condition: service_started
+      l9-vault-audit:
+        condition: service_started
+      l9-vault-object:
+        condition: service_started
+      l9-vault-token:
+        condition: service_started
+      l9-vault-fetch:
+        condition: service_started
+      l9-vault-export:
+        condition: service_started
+      l9-vault-admin:
+        condition: service_started
+      l9-vault-log:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b1-router:
+    build:
+      context: .
+      dockerfile: services/b1-router/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b1-router
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - n2
+      - nb1
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b1-files:
+    build:
+      context: .
+      dockerfile: services/b1-files/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b1-files
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb1
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b1-print:
+    build:
+      context: .
+      dockerfile: services/b1-print/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b1-print
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb1
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b1-cctv:
+    build:
+      context: .
+      dockerfile: services/b1-cctv/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b1-cctv
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb1
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b1-im:
+    build:
+      context: .
+      dockerfile: services/b1-im/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b1-im
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_91}:/answers/flag91:ro
+    networks:
+      - nb1
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b1-hp-ssh:
+    build:
+      context: .
+      dockerfile: services/b1-hp-ssh/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+      - "22"
+      - "80"
+      - "443"
+      - "8080"
+    environment:
+      - SERVICE_NAME=b1-hp-ssh
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb1
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b1-hp-db:
+    build:
+      context: .
+      dockerfile: services/b1-hp-db/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+      - "3306"
+      - "6379"
+    environment:
+      - SERVICE_NAME=b1-hp-db
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb1
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b2-router:
+    build:
+      context: .
+      dockerfile: services/b2-router/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b2-router
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - n5
+      - n6
+      - nb2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b2-jenkins:
+    build:
+      context: .
+      dockerfile: services/b2-jenkins/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b2-jenkins
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_92}:/answers/flag92:ro
+    networks:
+      - nb2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b2-teamcity:
+    build:
+      context: .
+      dockerfile: services/b2-teamcity/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b2-teamcity
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_93}:/answers/flag93:ro
+    networks:
+      - nb2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b2-ingress:
+    build:
+      context: .
+      dockerfile: services/b2-ingress/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b2-ingress
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_94}:/answers/flag94:ro
+    networks:
+      - nb2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b2-gitlab:
+    build:
+      context: .
+      dockerfile: services/b2-gitlab/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b2-gitlab
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b2-nexus:
+    build:
+      context: .
+      dockerfile: services/b2-nexus/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b2-nexus
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b2-build:
+    build:
+      context: .
+      dockerfile: services/b2-build/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b2-build
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b2-hp-api:
+    build:
+      context: .
+      dockerfile: services/b2-hp-api/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+      - "80"
+      - "443"
+      - "8080"
+    environment:
+      - SERVICE_NAME=b2-hp-api
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb2
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b3-router:
+    build:
+      context: .
+      dockerfile: services/b3-router/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b3-router
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - n5
+      - nb3
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b3-geoserver:
+    build:
+      context: .
+      dockerfile: services/b3-geoserver/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b3-geoserver
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_95}:/answers/flag95:ro
+    networks:
+      - nb3
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b3-hertzbeat:
+    build:
+      context: .
+      dockerfile: services/b3-hertzbeat/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b3-hertzbeat
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_96}:/answers/flag96:ro
+    networks:
+      - nb3
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b3-activemq:
+    build:
+      context: .
+      dockerfile: services/b3-activemq/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b3-activemq
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_97}:/answers/flag97:ro
+    networks:
+      - nb3
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b3-hugegraph:
+    build:
+      context: .
+      dockerfile: services/b3-hugegraph/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b3-hugegraph
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_98}:/answers/flag98:ro
+    networks:
+      - nb3
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b3-grafana:
+    build:
+      context: .
+      dockerfile: services/b3-grafana/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b3-grafana
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb3
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b3-warehouse:
+    build:
+      context: .
+      dockerfile: services/b3-warehouse/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b3-warehouse
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb3
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b3-hp-es:
+    build:
+      context: .
+      dockerfile: services/b3-hp-es/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+      - "9200"
+      - "6379"
+    environment:
+      - SERVICE_NAME=b3-hp-es
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb3
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b4-router:
+    build:
+      context: .
+      dockerfile: services/b4-router/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b4-router
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - n2
+      - n3
+      - nb4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b4-php:
+    build:
+      context: .
+      dockerfile: services/b4-php/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b4-php
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_99}:/answers/flag99:ro
+    networks:
+      - nb4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b4-tomcat:
+    build:
+      context: .
+      dockerfile: services/b4-tomcat/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b4-tomcat
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_100}:/answers/flag100:ro
+    networks:
+      - nb4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b4-react:
+    build:
+      context: .
+      dockerfile: services/b4-react/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b4-react
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_101}:/answers/flag101:ro
+    networks:
+      - nb4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b4-gotenberg:
+    build:
+      context: .
+      dockerfile: services/b4-gotenberg/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b4-gotenberg
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_102}:/answers/flag102:ro
+    networks:
+      - nb4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b4-chartbrew:
+    build:
+      context: .
+      dockerfile: services/b4-chartbrew/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b4-chartbrew
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_103}:/answers/flag103:ro
+    networks:
+      - nb4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b4-erp:
+    build:
+      context: .
+      dockerfile: services/b4-erp/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - SERVICE_NAME=b4-erp
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  b4-hp-ftp:
+    build:
+      context: .
+      dockerfile: services/b4-hp-ftp/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8000"
+      - "21"
+      - "22"
+    environment:
+      - SERVICE_NAME=b4-hp-ftp
+      - MALLOC_ARENA_MAX=2
+      - HXCTF_REQUIRE_TRACE=${HXCTF_REQUIRE_TRACE:-0}
+      - DEPLOY_SECRET=${DEPLOY_SECRET:-}
+      - VIEW_SALT=${VIEW_SALT:-}
+      - FLAG_BROKER_URL=${FLAG_BROKER_URL:-http://flag-broker:8100}
+      - PORT=8000
+    networks:
+      - nb4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+  l1-telnet:
+    build:
+      context: .
+      dockerfile: services/l1-telnet/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "2323:23"
+    environment:
+      - MALLOC_ARENA_MAX=2
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_1}:/answers/flag01:ro
+    networks:
+      - n1
+    healthcheck:
+      test: ["CMD-SHELL", "if command -v find >/dev/null 2>&1; then for d in /tmp /var/tmp /dev/shm; do find $$d -maxdepth 3 -xdev -type f -mmin +3 ! -path '/tmp/jetty-*' ! -path '/tmp/jetty-*/*' ! -path '/tmp/hsperfdata_*' ! -path '/tmp/hsperfdata_*/*' ! -path '/tmp/nginx-ui-*' ! -path '/tmp/nginx-ui-*/*' ! -path '/tmp/langflow*' ! -path '/tmp/langflow*/*' ! -path '/tmp/n8n*' ! -path '/tmp/n8n*/*' ! -path '/tmp/vite*' ! -path '/tmp/vite*/*' ! -path '/tmp/node*' ! -path '/tmp/node*/*' ! -path '/tmp/npm*' ! -path '/tmp/npm*/*' ! -path '/tmp/minio*' ! -path '/tmp/minio*/*' ! -path '/tmp/.X11-*' ! -path '/tmp/.X11-*/*' ! -path '/tmp/systemd-*' ! -path '/tmp/systemd-*/*' ! -path '/tmp/dbus-*' ! -path '/tmp/dbus-*/*' -delete 2>/dev/null; done; fi; bash -c 'exec 3<>/dev/tcp/127.0.0.1/23'"]
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 160M
+  l2-n8n:
+    build:
+      context: .
+      dockerfile: services/l2-n8n/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "5678"
+    environment:
+      - MALLOC_ARENA_MAX=2
+      - NODE_OPTIONS=--max-old-space-size=256
+      - N8N_RUNNERS_ENABLED=false
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_METRICS=false
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_11}:/answers/flag11:ro
+    networks:
+      - n2
+    healthcheck:
+      test: ["CMD-SHELL", "if command -v find >/dev/null 2>&1; then for d in /tmp /var/tmp /dev/shm; do find $$d -maxdepth 3 -xdev -type f -mmin +3 ! -path '/tmp/jetty-*' ! -path '/tmp/jetty-*/*' ! -path '/tmp/hsperfdata_*' ! -path '/tmp/hsperfdata_*/*' ! -path '/tmp/nginx-ui-*' ! -path '/tmp/nginx-ui-*/*' ! -path '/tmp/langflow*' ! -path '/tmp/langflow*/*' ! -path '/tmp/n8n*' ! -path '/tmp/n8n*/*' ! -path '/tmp/vite*' ! -path '/tmp/vite*/*' ! -path '/tmp/node*' ! -path '/tmp/node*/*' ! -path '/tmp/npm*' ! -path '/tmp/npm*/*' ! -path '/tmp/minio*' ! -path '/tmp/minio*/*' ! -path '/tmp/.X11-*' ! -path '/tmp/.X11-*/*' ! -path '/tmp/systemd-*' ! -path '/tmp/systemd-*/*' ! -path '/tmp/dbus-*' ! -path '/tmp/dbus-*/*' -delete 2>/dev/null; done; fi; curl -sf http://127.0.0.1:5678/form/vulnerable-form"]
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 90s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.60"
+          memory: 1024M
+  l3-next:
+    build:
+      context: .
+      dockerfile: services/l3-next/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "3000"
+    environment:
+      - MALLOC_ARENA_MAX=2
+      - NODE_OPTIONS=--max-old-space-size=256
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_19}:/answers/flag19:ro
+    networks:
+      - n3
+    healthcheck:
+      test: ["CMD-SHELL", "if command -v find >/dev/null 2>&1; then for d in /tmp /var/tmp /dev/shm; do find $$d -maxdepth 3 -xdev -type f -mmin +3 ! -path '/tmp/jetty-*' ! -path '/tmp/jetty-*/*' ! -path '/tmp/hsperfdata_*' ! -path '/tmp/hsperfdata_*/*' ! -path '/tmp/nginx-ui-*' ! -path '/tmp/nginx-ui-*/*' ! -path '/tmp/langflow*' ! -path '/tmp/langflow*/*' ! -path '/tmp/n8n*' ! -path '/tmp/n8n*/*' ! -path '/tmp/vite*' ! -path '/tmp/vite*/*' ! -path '/tmp/node*' ! -path '/tmp/node*/*' ! -path '/tmp/npm*' ! -path '/tmp/npm*/*' ! -path '/tmp/minio*' ! -path '/tmp/minio*/*' ! -path '/tmp/.X11-*' ! -path '/tmp/.X11-*/*' ! -path '/tmp/systemd-*' ! -path '/tmp/systemd-*/*' ! -path '/tmp/dbus-*' ! -path '/tmp/dbus-*/*' -delete 2>/dev/null; done; fi; node -e \"fetch('http://127.0.0.1:3000/login').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.40"
+          memory: 512M
+  l4-langflow:
+    image: vulhub/langflow:1.2.0
+    restart: unless-stopped
+    expose:
+      - "7860"
+    command: ["uv", "run", "langflow", "run", "--workers", "1"]
+    environment:
+      - MALLOC_ARENA_MAX=2
+      - LANGFLOW_WORKERS=1
+      - LANGFLOW_HOST=0.0.0.0
+      - LANGFLOW_AUTO_LOGIN=false
+      - LANGFLOW_SUPERUSER=administrator
+      - LANGFLOW_SUPERUSER_PASSWORD=Lf7!q2Vn9#Ra4Tz8@Km3
+      - DO_NOT_TRACK=true
+      - GIT_PYTHON_REFRESH=quiet
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_31}:/answers/flag31:ro
+    networks:
+      - n4
+    healthcheck:
+      test: ["CMD-SHELL", "if command -v find >/dev/null 2>&1; then for d in /tmp /var/tmp /dev/shm; do find $$d -maxdepth 3 -xdev -type f -mmin +3 ! -path '/tmp/jetty-*' ! -path '/tmp/jetty-*/*' ! -path '/tmp/hsperfdata_*' ! -path '/tmp/hsperfdata_*/*' ! -path '/tmp/nginx-ui-*' ! -path '/tmp/nginx-ui-*/*' ! -path '/tmp/langflow*' ! -path '/tmp/langflow*/*' ! -path '/tmp/n8n*' ! -path '/tmp/n8n*/*' ! -path '/tmp/vite*' ! -path '/tmp/vite*/*' ! -path '/tmp/node*' ! -path '/tmp/node*/*' ! -path '/tmp/npm*' ! -path '/tmp/npm*/*' ! -path '/tmp/minio*' ! -path '/tmp/minio*/*' ! -path '/tmp/.X11-*' ! -path '/tmp/.X11-*/*' ! -path '/tmp/systemd-*' ! -path '/tmp/systemd-*/*' ! -path '/tmp/dbus-*' ! -path '/tmp/dbus-*/*' -delete 2>/dev/null; done; fi; python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:7860/health',timeout=3)\""]
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 90s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.60"
+          memory: 1024M
+  l5-minio1:
+    build:
+      context: .
+      dockerfile: services/l5-minio/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "9000"
+    environment:
+      - MALLOC_ARENA_MAX=2
+      - MINIO_BROWSER=off
+      - MINIO_ROOT_USER=auditadmin
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_41}:/answers/flag41:ro
+    command:
+      - server
+      - http://l5-minio1:9000/mnt/data1
+      - http://l5-minio2:9000/mnt/data2
+      - http://l5-minio3:9000/mnt/data3
+    tmpfs:
+      - /mnt/data1:size=64m
+    hostname: node1
+    networks:
+      - n5
+    healthcheck:
+      test: ["CMD-SHELL", "if command -v find >/dev/null 2>&1; then for d in /tmp /var/tmp /dev/shm; do find $$d -maxdepth 3 -xdev -type f -mmin +3 ! -path '/tmp/jetty-*' ! -path '/tmp/jetty-*/*' ! -path '/tmp/hsperfdata_*' ! -path '/tmp/hsperfdata_*/*' ! -path '/tmp/nginx-ui-*' ! -path '/tmp/nginx-ui-*/*' ! -path '/tmp/langflow*' ! -path '/tmp/langflow*/*' ! -path '/tmp/n8n*' ! -path '/tmp/n8n*/*' ! -path '/tmp/vite*' ! -path '/tmp/vite*/*' ! -path '/tmp/node*' ! -path '/tmp/node*/*' ! -path '/tmp/npm*' ! -path '/tmp/npm*/*' ! -path '/tmp/minio*' ! -path '/tmp/minio*/*' ! -path '/tmp/.X11-*' ! -path '/tmp/.X11-*/*' ! -path '/tmp/systemd-*' ! -path '/tmp/systemd-*/*' ! -path '/tmp/dbus-*' ! -path '/tmp/dbus-*/*' -delete 2>/dev/null; done; fi; wget -q -O /dev/null http://127.0.0.1:9000/minio/health/live"]
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+  l5-minio2:
+    build:
+      context: .
+      dockerfile: services/l5-minio/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "9000"
+    environment:
+      - MALLOC_ARENA_MAX=2
+      - MINIO_BROWSER=off
+      - MINIO_ROOT_USER=auditadmin
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_41}:/answers/flag41:ro
+    command:
+      - server
+      - http://l5-minio1:9000/mnt/data1
+      - http://l5-minio2:9000/mnt/data2
+      - http://l5-minio3:9000/mnt/data3
+    tmpfs:
+      - /mnt/data2:size=64m
+    hostname: node2
+    networks:
+      - n5
+    healthcheck:
+      test: ["CMD-SHELL", "if command -v find >/dev/null 2>&1; then for d in /tmp /var/tmp /dev/shm; do find $$d -maxdepth 3 -xdev -type f -mmin +3 ! -path '/tmp/jetty-*' ! -path '/tmp/jetty-*/*' ! -path '/tmp/hsperfdata_*' ! -path '/tmp/hsperfdata_*/*' ! -path '/tmp/nginx-ui-*' ! -path '/tmp/nginx-ui-*/*' ! -path '/tmp/langflow*' ! -path '/tmp/langflow*/*' ! -path '/tmp/n8n*' ! -path '/tmp/n8n*/*' ! -path '/tmp/vite*' ! -path '/tmp/vite*/*' ! -path '/tmp/node*' ! -path '/tmp/node*/*' ! -path '/tmp/npm*' ! -path '/tmp/npm*/*' ! -path '/tmp/minio*' ! -path '/tmp/minio*/*' ! -path '/tmp/.X11-*' ! -path '/tmp/.X11-*/*' ! -path '/tmp/systemd-*' ! -path '/tmp/systemd-*/*' ! -path '/tmp/dbus-*' ! -path '/tmp/dbus-*/*' -delete 2>/dev/null; done; fi; wget -q -O /dev/null http://127.0.0.1:9000/minio/health/live"]
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+  l5-minio3:
+    build:
+      context: .
+      dockerfile: services/l5-minio/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "9000"
+    environment:
+      - MALLOC_ARENA_MAX=2
+      - MINIO_BROWSER=off
+      - MINIO_ROOT_USER=auditadmin
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_41}:/answers/flag41:ro
+    command:
+      - server
+      - http://l5-minio1:9000/mnt/data1
+      - http://l5-minio2:9000/mnt/data2
+      - http://l5-minio3:9000/mnt/data3
+    tmpfs:
+      - /mnt/data3:size=64m
+    hostname: node3
+    networks:
+      - n5
+    healthcheck:
+      test: ["CMD-SHELL", "if command -v find >/dev/null 2>&1; then for d in /tmp /var/tmp /dev/shm; do find $$d -maxdepth 3 -xdev -type f -mmin +3 ! -path '/tmp/jetty-*' ! -path '/tmp/jetty-*/*' ! -path '/tmp/hsperfdata_*' ! -path '/tmp/hsperfdata_*/*' ! -path '/tmp/nginx-ui-*' ! -path '/tmp/nginx-ui-*/*' ! -path '/tmp/langflow*' ! -path '/tmp/langflow*/*' ! -path '/tmp/n8n*' ! -path '/tmp/n8n*/*' ! -path '/tmp/vite*' ! -path '/tmp/vite*/*' ! -path '/tmp/node*' ! -path '/tmp/node*/*' ! -path '/tmp/npm*' ! -path '/tmp/npm*/*' ! -path '/tmp/minio*' ! -path '/tmp/minio*/*' ! -path '/tmp/.X11-*' ! -path '/tmp/.X11-*/*' ! -path '/tmp/systemd-*' ! -path '/tmp/systemd-*/*' ! -path '/tmp/dbus-*' ! -path '/tmp/dbus-*/*' -delete 2>/dev/null; done; fi; wget -q -O /dev/null http://127.0.0.1:9000/minio/health/live"]
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+  l6-vite:
+    build:
+      context: .
+      dockerfile: services/l6-vite/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "5173"
+    environment:
+      - MALLOC_ARENA_MAX=2
+      - NODE_OPTIONS=--max-old-space-size=256
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_51}:/answers/flag51:ro
+    networks:
+      - n6
+    healthcheck:
+      test: ["CMD-SHELL", "if command -v find >/dev/null 2>&1; then for d in /tmp /var/tmp /dev/shm; do find $$d -maxdepth 3 -xdev -type f -mmin +3 ! -path '/tmp/jetty-*' ! -path '/tmp/jetty-*/*' ! -path '/tmp/hsperfdata_*' ! -path '/tmp/hsperfdata_*/*' ! -path '/tmp/nginx-ui-*' ! -path '/tmp/nginx-ui-*/*' ! -path '/tmp/langflow*' ! -path '/tmp/langflow*/*' ! -path '/tmp/n8n*' ! -path '/tmp/n8n*/*' ! -path '/tmp/vite*' ! -path '/tmp/vite*/*' ! -path '/tmp/node*' ! -path '/tmp/node*/*' ! -path '/tmp/npm*' ! -path '/tmp/npm*/*' ! -path '/tmp/minio*' ! -path '/tmp/minio*/*' ! -path '/tmp/.X11-*' ! -path '/tmp/.X11-*/*' ! -path '/tmp/systemd-*' ! -path '/tmp/systemd-*/*' ! -path '/tmp/dbus-*' ! -path '/tmp/dbus-*/*' -delete 2>/dev/null; done; fi; node -e \"fetch('http://127.0.0.1:5173/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.40"
+          memory: 512M
+  l7-erlang:
+    image: vulhub/erlang:27.3.2-with-ssh
+    restart: unless-stopped
+    expose:
+      - "2222"
+    environment:
+      - MALLOC_ARENA_MAX=2
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_61}:/answers/flag61:ro
+    networks:
+      - n7
+    healthcheck:
+      test: ["CMD-SHELL", "if command -v find >/dev/null 2>&1; then for d in /tmp /var/tmp /dev/shm; do find $$d -maxdepth 3 -xdev -type f -mmin +3 ! -path '/tmp/jetty-*' ! -path '/tmp/jetty-*/*' ! -path '/tmp/hsperfdata_*' ! -path '/tmp/hsperfdata_*/*' ! -path '/tmp/nginx-ui-*' ! -path '/tmp/nginx-ui-*/*' ! -path '/tmp/langflow*' ! -path '/tmp/langflow*/*' ! -path '/tmp/n8n*' ! -path '/tmp/n8n*/*' ! -path '/tmp/vite*' ! -path '/tmp/vite*/*' ! -path '/tmp/node*' ! -path '/tmp/node*/*' ! -path '/tmp/npm*' ! -path '/tmp/npm*/*' ! -path '/tmp/minio*' ! -path '/tmp/minio*/*' ! -path '/tmp/.X11-*' ! -path '/tmp/.X11-*/*' ! -path '/tmp/systemd-*' ! -path '/tmp/systemd-*/*' ! -path '/tmp/dbus-*' ! -path '/tmp/dbus-*/*' -delete 2>/dev/null; done; fi; bash -c 'exec 3<>/dev/tcp/127.0.0.1/2222'"]
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.40"
+          memory: 512M
+  l8-nginx-ui:
+    build:
+      context: .
+      dockerfile: services/l8-nginx-ui/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "9000"
+    environment:
+      - MALLOC_ARENA_MAX=2
+      - NGINX_UI_NODE_SKIP_INSTALLATION=true
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_71}:/answers/flag71:ro
+    networks:
+      - n8
+    healthcheck:
+      test: ["CMD-SHELL", "if command -v find >/dev/null 2>&1; then for d in /tmp /var/tmp /dev/shm; do find $$d -maxdepth 3 -xdev -type f -mmin +3 ! -path '/tmp/jetty-*' ! -path '/tmp/jetty-*/*' ! -path '/tmp/hsperfdata_*' ! -path '/tmp/hsperfdata_*/*' ! -path '/tmp/nginx-ui-*' ! -path '/tmp/nginx-ui-*/*' ! -path '/tmp/langflow*' ! -path '/tmp/langflow*/*' ! -path '/tmp/n8n*' ! -path '/tmp/n8n*/*' ! -path '/tmp/vite*' ! -path '/tmp/vite*/*' ! -path '/tmp/node*' ! -path '/tmp/node*/*' ! -path '/tmp/npm*' ! -path '/tmp/npm*/*' ! -path '/tmp/minio*' ! -path '/tmp/minio*/*' ! -path '/tmp/.X11-*' ! -path '/tmp/.X11-*/*' ! -path '/tmp/systemd-*' ! -path '/tmp/systemd-*/*' ! -path '/tmp/dbus-*' ! -path '/tmp/dbus-*/*' -delete 2>/dev/null; done; fi; curl -sf http://127.0.0.1:9000/"]
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.40"
+          memory: 512M
+  l9-spring:
+    image: vulhub/spring-boot-jetty:3.2.4
+    restart: unless-stopped
+    expose:
+      - "8080"
+    environment:
+      - MALLOC_ARENA_MAX=2
+      - JAVA_TOOL_OPTIONS=-Xmx192m -XX:MaxMetaspaceSize=96m -XX:ReservedCodeCacheSize=32m -XX:+UseSerialGC
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_81}:/answers/flag81:ro
+    networks:
+      - n9
+    healthcheck:
+      test: ["CMD-SHELL", "if command -v find >/dev/null 2>&1; then for d in /tmp /var/tmp /dev/shm; do find $$d -maxdepth 3 -xdev -type f -mmin +3 ! -path '/tmp/jetty-*' ! -path '/tmp/jetty-*/*' ! -path '/tmp/hsperfdata_*' ! -path '/tmp/hsperfdata_*/*' ! -path '/tmp/nginx-ui-*' ! -path '/tmp/nginx-ui-*/*' ! -path '/tmp/langflow*' ! -path '/tmp/langflow*/*' ! -path '/tmp/n8n*' ! -path '/tmp/n8n*/*' ! -path '/tmp/vite*' ! -path '/tmp/vite*/*' ! -path '/tmp/node*' ! -path '/tmp/node*/*' ! -path '/tmp/npm*' ! -path '/tmp/npm*/*' ! -path '/tmp/minio*' ! -path '/tmp/minio*/*' ! -path '/tmp/.X11-*' ! -path '/tmp/.X11-*/*' ! -path '/tmp/systemd-*' ! -path '/tmp/systemd-*/*' ! -path '/tmp/dbus-*' ! -path '/tmp/dbus-*/*' -delete 2>/dev/null; done; fi; bash -c 'exec 3<>/dev/tcp/127.0.0.1/8080'"]
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 768M
+  l3-shop:
+    build:
+      context: .
+      dockerfile: services/l3-shop/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "5000"
+    environment:
+      - MALLOC_ARENA_MAX=2
+    volumes:
+      - ${DYNAMIC_FLAG_PATH_21}:/answers/flag21:ro
+      - ${FLAG_BROKER_DIR:-./broker-data}/traces.json:/app/shared/traces.json:ro
+    networks:
+      - n3
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+  l1-decoy:
+    build:
+      context: .
+      dockerfile: services/decoy/Dockerfile
+    restart: unless-stopped
+    environment:
+      - DECOY_PROFILE=l1
+    expose:
+      - "8080"
+      - "8443"
+      - "2222"
+      - "3306"
+      - "5432"
+      - "6379"
+      - "9200"
+      - "27017"
+    networks:
+      n1:
+        aliases:
+          - l1-legacy
+          - l1-backup-old
+          - l1-db-old
+          - l1-redis-cache
+          - l1-admin-panel
+          - l1-monitor-legacy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 96M
+  l2-decoy:
+    build:
+      context: .
+      dockerfile: services/decoy/Dockerfile
+    restart: unless-stopped
+    environment:
+      - DECOY_PROFILE=l2
+    expose:
+      - "8080"
+      - "8443"
+      - "2222"
+      - "3306"
+      - "5432"
+      - "6379"
+      - "9200"
+      - "27017"
+    networks:
+      n2:
+        aliases:
+          - l2-legacy
+          - l2-backup-old
+          - l2-db-old
+          - l2-redis-cache
+          - l2-admin-panel
+          - l2-monitor-legacy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 96M
+  l3-decoy:
+    build:
+      context: .
+      dockerfile: services/decoy/Dockerfile
+    restart: unless-stopped
+    environment:
+      - DECOY_PROFILE=l3
+    expose:
+      - "8080"
+      - "8443"
+      - "2222"
+      - "3306"
+      - "5432"
+      - "6379"
+      - "9200"
+      - "27017"
+    networks:
+      n3:
+        aliases:
+          - l3-legacy
+          - l3-backup-old
+          - l3-db-old
+          - l3-redis-cache
+          - l3-admin-panel
+          - l3-monitor-legacy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 96M
+  l4-decoy:
+    build:
+      context: .
+      dockerfile: services/decoy/Dockerfile
+    restart: unless-stopped
+    environment:
+      - DECOY_PROFILE=l4
+    expose:
+      - "8080"
+      - "8443"
+      - "2222"
+      - "3306"
+      - "5432"
+      - "6379"
+      - "9200"
+      - "27017"
+    networks:
+      n4:
+        aliases:
+          - l4-legacy
+          - l4-backup-old
+          - l4-db-old
+          - l4-redis-cache
+          - l4-admin-panel
+          - l4-monitor-legacy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 96M
+  l5-decoy:
+    build:
+      context: .
+      dockerfile: services/decoy/Dockerfile
+    restart: unless-stopped
+    environment:
+      - DECOY_PROFILE=l5
+    expose:
+      - "8080"
+      - "8443"
+      - "2222"
+      - "3306"
+      - "5432"
+      - "6379"
+      - "9200"
+      - "27017"
+    networks:
+      n5:
+        aliases:
+          - l5-legacy
+          - l5-backup-old
+          - l5-db-old
+          - l5-redis-cache
+          - l5-admin-panel
+          - l5-monitor-legacy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 96M
+  l6-decoy:
+    build:
+      context: .
+      dockerfile: services/decoy/Dockerfile
+    restart: unless-stopped
+    environment:
+      - DECOY_PROFILE=l6
+    expose:
+      - "8080"
+      - "8443"
+      - "2222"
+      - "3306"
+      - "5432"
+      - "6379"
+      - "9200"
+      - "27017"
+    networks:
+      n6:
+        aliases:
+          - l6-legacy
+          - l6-backup-old
+          - l6-db-old
+          - l6-redis-cache
+          - l6-admin-panel
+          - l6-monitor-legacy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 96M
+  l7-decoy:
+    build:
+      context: .
+      dockerfile: services/decoy/Dockerfile
+    restart: unless-stopped
+    environment:
+      - DECOY_PROFILE=l7
+    expose:
+      - "8080"
+      - "8443"
+      - "2222"
+      - "3306"
+      - "5432"
+      - "6379"
+      - "9200"
+      - "27017"
+    networks:
+      n7:
+        aliases:
+          - l7-legacy
+          - l7-backup-old
+          - l7-db-old
+          - l7-redis-cache
+          - l7-admin-panel
+          - l7-monitor-legacy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 96M
+  l8-decoy:
+    build:
+      context: .
+      dockerfile: services/decoy/Dockerfile
+    restart: unless-stopped
+    environment:
+      - DECOY_PROFILE=l8
+    expose:
+      - "8080"
+      - "8443"
+      - "2222"
+      - "3306"
+      - "5432"
+      - "6379"
+      - "9200"
+      - "27017"
+    networks:
+      n8:
+        aliases:
+          - l8-legacy
+          - l8-backup-old
+          - l8-db-old
+          - l8-redis-cache
+          - l8-admin-panel
+          - l8-monitor-legacy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 96M
+  l9-decoy:
+    build:
+      context: .
+      dockerfile: services/decoy/Dockerfile
+    restart: unless-stopped
+    environment:
+      - DECOY_PROFILE=l9
+    expose:
+      - "8080"
+      - "8443"
+      - "2222"
+      - "3306"
+      - "5432"
+      - "6379"
+      - "9200"
+      - "27017"
+    networks:
+      n9:
+        aliases:
+          - l9-legacy
+          - l9-backup-old
+          - l9-db-old
+          - l9-redis-cache
+          - l9-admin-panel
+          - l9-monitor-legacy
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 96M
+  l9-vault-decoy:
+    build:
+      context: .
+      dockerfile: services/decoy/Dockerfile
+    restart: unless-stopped
+    environment:
+      - DECOY_PROFILE=vault
+    expose:
+      - "8080"
+      - "8443"
+      - "2222"
+      - "3306"
+      - "5432"
+      - "6379"
+      - "9200"
+      - "27017"
+    networks:
+      n9v:
+        aliases:
+          - l9-vault-legacy
+          - l9-vault-backup
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=3)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 96M
+  flag-broker:
+    build:
+      context: .
+      dockerfile: services/flag-broker/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8100"
+    environment:
+      - BROKER_DATA=/data
+      - MALLOC_ARENA_MAX=2
+      - SERVICE_KEYS=/srv/service_keys.json
+      - SERVICE_FLAGS=/srv/service_flags.json
+    volumes:
+      - ${FLAG_BROKER_DIR:-./broker-data}:/data:ro
+    networks:
+      - n1
+      - n2
+      - n3
+      - n4
+      - n5
+      - n6
+      - n7
+      - n8
+      - n9
+      - n9v
+      - nb1
+      - nb2
+      - nb3
+      - nb4
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:8100/healthz',timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.15"
+          memory: 96M
+networks:
+  n1:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.210.17.0/24
+  n2:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.113.6.0/24
+  n3:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.201.33.0/24
+  n4:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.26.91.0/24
+  n5:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.27.14.0/24
+  n6:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.28.72.0/24
+  n7:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 192.168.37.0/24
+  n8:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 192.168.70.0/24
+  n9:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 192.168.50.0/24
+  n9v:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.247.58.0/24
+  nb1:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.21.0/24
+  nb2:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.47.0/24
+  nb3:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.77.0/24
+  nb4:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 192.168.91.0/24

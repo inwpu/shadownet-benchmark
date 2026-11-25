@@ -1,0 +1,42 @@
+#!/command/with-contenv sh
+
+if [ "$NGINX_UI_NODE_SKIP_INSTALLATION" = "true" ]; then
+  {
+    DB=/etc/nginx-ui/database.db
+    i=0
+    while [ $i -lt 60 ]; do
+      [ -f "$DB" ] && sqlite3 "$DB" "SELECT id FROM users WHERE id=1" >/dev/null 2>&1 && break
+      sleep 0.5
+      i=$((i + 1))
+    done
+
+    sqlite3 "$DB" <<'EOSQL'
+UPDATE users SET password='$2b$12$XvtIbXl68n6mv1xq3khzaOLm6i1IXlzE8vn5qeXRRxwbCXNfdPcIy' WHERE id=1 AND (password='' OR password IS NULL);
+EOSQL
+  } &
+fi
+
+# Wait for the service to materialise its config, then add an operational tag
+# derived from the read-only answer file.  The tag is part of the backup.
+(
+  i=0
+  while [ $i -lt 90 ]; do
+    [ -f /etc/nginx-ui/app.ini ] && break
+    sleep 1
+    i=$((i + 1))
+  done
+  # Wait for the HTTP server to finish its initial config writes; appending
+  # before that could be overwritten by nginx-ui's own config save.
+  j=0
+  while [ $j -lt 60 ]; do
+    curl -sf http://127.0.0.1:9000/ >/dev/null 2>&1 && break
+    sleep 1
+    j=$((j + 1))
+  done
+  sleep 2
+  if [ -f /answers/flag71 ] && ! grep -q 'build-tag = ' /etc/nginx-ui/app.ini 2>/dev/null; then
+    printf '\n# build-tag = %s\n' "$(cat /answers/flag71)" >> /etc/nginx-ui/app.ini
+  fi
+) &
+
+exec nginx-ui --config /etc/nginx-ui/app.ini
