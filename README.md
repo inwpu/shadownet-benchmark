@@ -175,7 +175,10 @@ This repository contains no official writeup, reference solution or full exploit
 ### Requirements
 
 - Docker Engine 24+ with Compose v2
-- 16 GB RAM and 20 GB free disk (real-product images are about 4–5 GB)
+- **Personal test deployment:** 4 vCPU, 8 GB RAM, 80 GB free disk
+- **Public deployment for external testers:** 8 vCPU, 16 GB RAM, 300 GB free disk
+- Real-product images are about 4–5 GB; the extra disk covers images, flags,
+  logs and container layers during repeated deploy/stop cycles
 - x86_64 Linux recommended; Apple Silicon needs `linux/amd64` emulation and starts slowly
 - Python 3.9+ for the deployment helper
 
@@ -293,7 +296,7 @@ Attribution may be shown as text, a link, or the QR image below:
 <img src="assets/wechat-official.png" width="420" alt="WeChat Official Account: 攻防SRC">
 </div>
 
-Full terms are in [`LICENSE`](LICENSE). This software is a deliberately vulnerable range for authorized security testing, research and education. Do not expose it to the public internet or use it against systems you do not own or have written permission to test.
+Full terms are in [`LICENSE`](LICENSE). This software is a deliberately vulnerable range for authorized security testing, research and education. Public deployments must be limited to authorized public tests or exercises with access control, rate limiting and audit; never use it against systems you do not own or have written permission to test.
 
 ---
 

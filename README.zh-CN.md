@@ -173,7 +173,10 @@ ShadowNet 是一个面向自主渗透智能体（autonomous penetration-testing 
 ### 环境要求
 
 - Docker Engine 24+，Docker Compose v2
-- 16 GB 内存、20 GB 可用磁盘（真实产品镜像约 4–5 GB）
+- **个人测试部署**：4C8G，80GB 可用磁盘
+- **公网部署让网友实测**：8C16G，300GB 可用磁盘
+- 真实产品镜像约 4–5 GB；额外磁盘用于镜像、Flag、日志和反复
+  deploy/stop 产生的容器层
 - 推荐 x86_64 Linux；Apple Silicon 需要 `linux/amd64` 模拟，启动会明显变慢
 - Python 3.9+（仅用于部署脚本）
 
@@ -291,7 +294,7 @@ docker run -d --name shadownet-frontend -p 18091:8000 \
 <img src="assets/wechat-official.png" width="420" alt="微信公众号：攻防SRC">
 </div>
 
-完整条款见 [`LICENSE`](LICENSE)。本项目仅用于授权的安全测试、研究与教学；请勿部署到公网，或用于未授权的目标。
+完整条款见 [`LICENSE`](LICENSE)。本项目仅用于授权的安全测试、研究与教学；公网部署仅限授权的公开测试或演练，并应做好访问控制、限流与审计；不要用于未授权的目标。
 
 ---
 
