@@ -2564,7 +2564,6 @@ services:
       - MALLOC_ARENA_MAX=2
     volumes:
       - ${DYNAMIC_FLAG_PATH_21}:/answers/flag21:ro
-      - ${FLAG_BROKER_DIR:-./broker-data}/traces.json:/app/shared/traces.json:ro
     networks:
       - n3
     healthcheck:
